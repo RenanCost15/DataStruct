@@ -1,4 +1,9 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
+
 
 void selection_sort(int num[], int tam) {
     int i, j, min, aux;

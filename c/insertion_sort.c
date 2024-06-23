@@ -1,14 +1,23 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
 
-void insertion_sort(int* v, unsigned int n) {
-    int i, j, k;
-    for (i = 1; i < n; i++) {
-        k = v[i];
+
+//Insertion sort function
+void insertion_sort(int *a, unsigned int s) {
+    int i, j, k; //Declaration of variables
+
+    for (i = 1; i < s; i++) {
+        k = a[i]; //Stores the value of the current element
         j = i - 1;
-        while (j > 0 && v[j] > k) {
-            v[j + 1] = v[j];
+
+        //Moves elements greater than k to the front position
+        while (j > 0 && a[j] > k) {
+            a[j + 1] = a[j];
             j = j - 1;
         }
-        v[j + 1] = k;
+        a[j + 1] = k; //Insert k in the correct position
     }
 }

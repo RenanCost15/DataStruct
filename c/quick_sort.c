@@ -1,4 +1,9 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
+
 
 void quick_sort(int* v, int init, int end);
 int partition(int* v, int init, int end);

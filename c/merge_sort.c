@@ -1,4 +1,9 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
+
 
 void merge_sort(int* v, int init, int end);
 void merge(int* v, int init, int m, int end);

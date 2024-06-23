@@ -1,4 +1,9 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
+
 
 int findMin(int arr[], int n) {
     int min_val = arr[0];
