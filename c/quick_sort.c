@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 void quick_sort(int* v, int init, int end);
 int partition(int* v, int init, int end);
 

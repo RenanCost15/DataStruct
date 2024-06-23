@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 int findMin(int arr[], int n) {
     int min_val = arr[0];
     for (int i = 1; i < n; i++) {
