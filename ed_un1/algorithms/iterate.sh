@@ -16,9 +16,6 @@ $0 <executions> <size-start> <size-pass> <size-end> <program> <name>
 # Verifica se o número de argumentos é igual a 6
 if [ $# -eq 6 ]; then
 
-    # Cria uma pasta com o nome baseado no sexto argumento, se não existir
-    mkdir -p $6
-
     # Nome do arquivo de resultado baseado no sexto argumento, dentro da pasta criada
     result=graphics/$6/$6.txt
     # Limpa o conteúdo do arquivo de resultado
