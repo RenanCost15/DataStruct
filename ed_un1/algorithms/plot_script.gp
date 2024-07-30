@@ -21,5 +21,5 @@ set xlabel "problem instance size (n)"
 #   - using 1:2: Usa a primeira coluna como dados para o eixo x e a segunda coluna como dados para o eixo y
 #   - with lines: Plota os pontos com linhas conectando-os
 #   - title 'title': Define o título da legenda para a série de dados como 'title'
-plot 'graphics/selection/selection.txt' using 1:2 with lines title 'title'
+plot 'graphics/selection/selection.txt' using 1:2 with lines title 'random selection-sort'
 
