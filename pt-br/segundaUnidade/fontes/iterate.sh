@@ -14,12 +14,12 @@ $0 <executions> <size-start> <size-pass> <size-end> <program> <name>
 
 if [ $# -eq 6 ]; then
 
-    result=$6.txt
+    result=../graficos/$6.txt
     echo -n > $result
 
     for n in `seq $2 $3 $4`;
     do
-        file=$6-$1-$n.txt
+        file=../graficos/$6-$1-$n.txt
         echo -n > $file
  
         for i in `seq $1`;

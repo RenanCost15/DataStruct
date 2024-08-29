@@ -2,123 +2,123 @@
 #include <stdio.h>
 #include <time.h>
 
-struct no_arvore {
+struct noArv {
     int valor;
-    struct no_arvore* filho_esquerdo;
-    struct no_arvore* filho_direito;
+    struct noArv* galhoEsq;
+    struct noArv* galhoDir;
     unsigned int altura;
 };
 
-int obter_altura(struct no_arvore* no) {
-    if (no == NULL) {
-        return 0;
+int obterAlt(struct noArv* no) {
+    if (no != NULL) {
+        return no->altura;
     }
 
-    return no->altura;
+    return 0;
 }
 
-int obter_diferenca(struct no_arvore* no) {
-    if (no == NULL) {
-        return 0;
+int obterDif(struct noArv* no) {
+    if (no != NULL) {
+        return obterAlt(no->galhoEsq) - obterAlt(no->galhoDir);
     }
 
-    return obter_altura(no->filho_esquerdo) - obter_altura(no->filho_direito);
+    return 0;
 }
 
-void atualizar_altura(struct no_arvore* no) {
+void attAltura(struct noArv* no) {
     if (no == NULL) {
         return;
     }
 
-    int altura_esquerda = obter_altura(no->filho_esquerdo);
-    int altura_direita = obter_altura(no->filho_direito);
+    int altEsq = obterAlt(no->galhoEsq);
+    int altDir = obterAlt(no->galhoDir);
 
-    no->altura = (altura_esquerda > altura_direita ? altura_esquerda : altura_direita) + 1;
+    no->altura = (altEsq > altDir ? altEsq : altDir) + 1;
 }
 
-struct no_arvore* rotacionar_esquerda(struct no_arvore* no) {
-    struct no_arvore* nova_raiz = no->filho_direito;
+struct noArv* rotEsq(struct noArv* no) {
+    struct noArv* nvRaiz = no->galhoDir;
 
-    no->filho_direito = nova_raiz->filho_esquerdo;
+    no->galhoDir = nvRaiz->galhoEsq;
 
-    nova_raiz->filho_esquerdo = no;
+    nvRaiz->galhoEsq = no;
 
-    atualizar_altura(no);
-    atualizar_altura(nova_raiz);
+    attAltura(no);
+    attAltura(nvRaiz);
 
-    return nova_raiz;
+    return nvRaiz;
 }
 
-struct no_arvore* rotacionar_direita(struct no_arvore* no) {
-    struct no_arvore* nova_raiz = no->filho_esquerdo;
+struct noArv* rotDir(struct noArv* no) {
+    struct noArv* nvRaiz = no->galhoEsq;
 
-    no->filho_esquerdo = nova_raiz->filho_direito;
+    no->galhoEsq = nvRaiz->galhoDir;
 
-    nova_raiz->filho_direito = no;
+    nvRaiz->galhoDir = no;
 
-    atualizar_altura(no);
-    atualizar_altura(nova_raiz);
+    attAltura(no);
+    attAltura(nvRaiz);
     
-    return nova_raiz;
+    return nvRaiz;
 }
 
-struct no_arvore* inserir(struct no_arvore* raiz, int valor) {
+struct noArv* inserir(struct noArv* raiz, int valor) {
     if (raiz == NULL) {
-        raiz = malloc(sizeof(struct no_arvore));
+        raiz = malloc(sizeof(struct noArv));
         raiz->valor = valor;
-        raiz->filho_esquerdo = NULL;
-        raiz->filho_direito = NULL;
+        raiz->galhoEsq = NULL;
+        raiz->galhoDir = NULL;
         raiz->altura = 1;
     } else if (valor < raiz->valor) {
-        raiz->filho_esquerdo = inserir(raiz->filho_esquerdo, valor);
+        raiz->galhoEsq = inserir(raiz->galhoEsq, valor);
     } else if (valor > raiz->valor) {
-        raiz->filho_direito = inserir(raiz->filho_direito, valor);
+        raiz->galhoDir = inserir(raiz->galhoDir, valor);
     } else {
         return raiz;
     }
 
-    atualizar_altura(raiz);
+    attAltura(raiz);
 
-    int diferenca = obter_diferenca(raiz);
+    int dif = obterDif(raiz);
 
-    if (diferenca > 1 && valor < raiz->filho_esquerdo->valor) {
-        return rotacionar_direita(raiz);
+    if (dif > 1 && valor < raiz->galhoEsq->valor) {
+        return rotDir(raiz);
     }
-    if (diferenca < -1 && valor > raiz->filho_direito->valor) {
-        return rotacionar_esquerda(raiz);
+    if (dif < -1 && valor > raiz->galhoDir->valor) {
+        return rotEsq(raiz);
     }
-    if (diferenca > 1 && valor > raiz->filho_esquerdo->valor) {
-        raiz->filho_esquerdo = rotacionar_esquerda(raiz->filho_esquerdo);
-        return rotacionar_direita(raiz);
+    if (dif > 1 && valor > raiz->galhoEsq->valor) {
+        raiz->galhoEsq = rotEsq(raiz->galhoEsq);
+        return rotDir(raiz);
     }
-    if (diferenca < -1 && valor < raiz->filho_direito->valor) {
-        raiz->filho_direito = rotacionar_direita(raiz->filho_direito);
-        return rotacionar_esquerda(raiz);
+    if (dif < -1 && valor < raiz->galhoDir->valor) {
+        raiz->galhoDir = rotDir(raiz->galhoDir);
+        return rotEsq(raiz);
     }
 
     return raiz;
 }
 
-struct no_arvore *buscar(struct no_arvore *raiz, int valor) {
+struct noArv *buscar(struct noArv *raiz, int valor) {
     if (raiz != NULL) {
         if (raiz->valor == valor) {
             return raiz;
         }
 
         if (raiz->valor < valor) {
-            return buscar(raiz->filho_direito, valor);
+            return buscar(raiz->galhoDir, valor);
         }
 
-        return buscar(raiz->filho_esquerdo, valor);
+        return buscar(raiz->galhoEsq, valor);
     }
 
     return NULL;
 }
 
 int main(int argc, char **argv) {
-    struct no_arvore* raiz = NULL;
+    struct noArv* raiz = NULL;
 
-    struct timespec inicio, fim;
+    struct timespec ini, f;
     unsigned int tempo, n;
 
     int i, aux, *arr;
@@ -137,11 +137,11 @@ int main(int argc, char **argv) {
 
     int valor_busca = raiz->valor;
 
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    struct no_arvore *no = buscar(raiz, valor_busca);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
+    clock_gettime(CLOCK_MONOTONIC, &ini);
+    struct noArv *no = buscar(raiz, valor_busca);
+    clock_gettime(CLOCK_MONOTONIC, &f);
 
-    tempo = (fim.tv_sec * 1e9 + fim.tv_nsec) - (inicio.tv_sec * 1e9 + inicio.tv_nsec);
+    tempo = (f.tv_sec * 1e9 + f.tv_nsec) - (ini.tv_sec * 1e9 + ini.tv_nsec);
 
     printf("%u\n", tempo);
 
