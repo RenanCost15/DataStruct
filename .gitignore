@@ -1,5 +1,4 @@
 __pycache__/
 *.py[cod]
-myfile.txt
-integers.txt
-items.dat
+.venv/
+venv/
