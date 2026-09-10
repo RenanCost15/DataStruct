@@ -1,4 +1,4 @@
-# Fundamentals of Python: Data Structures — Capítulos 1 a 6 — PT-BR
+# Fundamentals of Python: Data Structures — PT-BR
 
 O livro é a especificação fechada do repositório:
 
