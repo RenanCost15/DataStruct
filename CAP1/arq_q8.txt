@@ -1,0 +1,5 @@
+Estruturas de dados organizam informações.
+Listas mantêm itens em posições.
+Pilhas seguem a política LIFO.
+Filas seguem a política FIFO.
+Árvores representam relações hierárquicas.
